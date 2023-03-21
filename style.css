@@ -33,3 +33,30 @@ body {
 .control {
   position: absolute;
 }
+
+
+#list::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+#list::-webkit-scrollbar:vertical {
+  width:10px;
+}
+
+#list::-webkit-scrollbar-button:increment,#list::-webkit-scrollbar-button {
+  display: none;
+} 
+
+#list::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+#list::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+#list::-webkit-scrollbar-track {
+  border-radius: 10px;  
+}

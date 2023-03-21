@@ -10,7 +10,7 @@ var map = L.map('map',{
   maxZoom: 19,
   zoomControl: false,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).setView([36.7201600, -4.4203400], 16);
+}).setView([36.721, -4.42], 16);
 
 // Implementation: Instantiate a ZoomBar control in its place.
 //
