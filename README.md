@@ -1,35 +1,36 @@
-# Mapa de Málaga con edificios históricos
-Este proyecto es una aplicación web que muestra un mapa de Málaga con edificios históricos marcados y un listado correspondiente. La aplicación es útil para turistas y habitantes locales interesados en explorar la rica historia de Málaga.
+# L.Control.ZoomBar
+An extended version of Leaflet's native Zoom control with Home and Zoom-to-Area buttons.
 
-## Tecnologías utilizadas
-- HTML
-- CSS
-- JavaScript
-- Leaflet (una librería de mapas interactivos)
-- OpenStreetMap (fuente de datos para los mapas)
+[Demo](https://elrobis.github.io/L.Control.ZoomBar/)
 
-## Instalación
-1. Clona este repositorio en tu máquina local utilizando el siguiente comando:
+This control will be most useful in mapping apps with a lot of desktop users who might benefit from a zoom-to-area control. Because the zoom-to-area button isn't useful on mobile due to native pinch zooming, it isn't loaded when small area screens are detected. 
+
+The home button is loaded regardless of client device conditions. The home "location" is set to the map's initial view, which is established by a call to `map.setView()` immediately after the map is instantiated.
+
+### Implementation:
+
+Copy the files from the build directory into your application and save them in the same folder as your leaflet library files...don't forget the two button icon PNGs, which can be copied into Leaflet's images directory. Link the CSS and JS files in your html <head> section immediately after the leaflet library files of the same type. For example..
+
 ```
-Copy code
-git clone https://github.com/ivanmarquez99/Mapa-de-Malaga.git 
+<link rel="stylesheet" type="text/css" href="src/leaflet.css"/>
+<link rel="stylesheet" type="text/css" href="src/L.Control.ZoomBar.css"/>
+
+<script type="text/javascript" src="src/leaflet.js"></script>
+<script type="text/javascript" src="src/L.Control.ZoomBar.js"></script>
 ```
 
-2. Abre el archivo index.html en tu navegador web.
+With the control library files linked, instantiate your leaflet map like normal, *except make sure to set the* `zoomControl` *option to* `false` *to disable leaflet's native zoom control.* The "home position" will be established by the initial call to `setView()`.
 
-## Uso
-Una vez que la aplicación se haya cargado en tu navegador, verás un mapa de Málaga con varios marcadores. Cada marcador representa un edificio histórico en la ciudad. Si haces clic en un marcador, se mostrará una ventana emergente con información sobre ese edificio. Además, también puedes navegar por la lista de edificios históricos en la barra lateral derecha. Si haces clic en un elemento de la lista, el mapa se centrará en el edificio correspondiente.
+```
+// Instantiate your leaflet map object..
+//
+var map = L.map('map',{
+                        minZoom: 13,
+                        maxZoom: 18,
+                        zoomControl: false                // set to false !
+                      }).setView([34.00, -81.035], 14);   // sets the reusable home position
 
-## Contribución
-Si deseas contribuir a este proyecto, sigue estos pasos:
-
-1. Haz un fork de este repositorio.
-2. Clona el fork en tu máquina local.
-3. Crea una nueva rama utilizando el siguiente comando: `git checkout -b nombre-de-tu-rama`
-4. Realiza tus cambios y realiza un commit con un mensaje descriptivo.
-5. Haz un push de tu rama al fork utilizando el siguiente comando: `git push origin nombre-de-tu-rama`
-6. Crea una solicitud de extracción en GitHub y describe tus cambios en detalle.
-
-## Licencia
-
-<a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL3</a>
+// Instantiate the ZoomBar control..
+//
+var zoom_bar = new L.Control.ZoomBar({position: 'topright'}).addTo(map);
+```
