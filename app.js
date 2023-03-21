@@ -1,5 +1,3 @@
-
-var map = L.map('map')
 var tabla = document.querySelector("#list");
 var templateList = document.querySelector("template.list");
 var templateModal = document.querySelector("template.modal");
@@ -7,16 +5,22 @@ var body = document.querySelector("body");
 var modalInformacion = document.querySelector("#modalInformacion");
 var home = document.getElementById("zoom-home-boton");
 
-// Añadimos el mapa de open street map
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 20,
+var map = L.map('map',{
+  minZoom: 13,
+  maxZoom: 19,
+  zoomControl: false,
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map)
+}).setView([36.7201600, -4.4203400], 16);
+
+// Implementation: Instantiate a ZoomBar control in its place.
+//
+var zoom_bar = new L.Control.ZoomBar({position: 'topright'}).addTo(map);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', 
+{maxZoom: 19}).addTo(map);
 
 L.control.scale({position: "bottomleft", maxWidth: 100, metric: true, imperial: false}).addTo(map);
-
-// Añadimos la vista con las coordenadas de Málaga y un zoom de 16
-map.setView([36.7201600, -4.4203400], 16)
 
 // Creamos un array donde importaremos los datos del json
 var elementos = []
@@ -39,10 +43,6 @@ window.addEventListener("load", function() {
       //Llamamos a las funciones de crear marcadores y crear la lista
       crearMarcadores()
       crearLista()
-    });
-
-    home.addEventListener("click", function() {
-      map.setView([36.7201600, -4.4203400], 16)
     });
 })
 
